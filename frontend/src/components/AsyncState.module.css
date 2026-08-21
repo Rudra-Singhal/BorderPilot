@@ -1,0 +1,15 @@
+.state {
+  padding: 32px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+}
+
+.error {
+  color: var(--critical-text);
+  background: var(--critical-soft);
+  border-style: solid;
+  border-color: transparent;
+}

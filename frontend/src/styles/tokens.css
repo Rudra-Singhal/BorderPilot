@@ -1,0 +1,100 @@
+:root {
+  --bg: #F3F5F1;
+  --surface: #FFFFFF;
+  --surface-sunken: #ECEFEA;
+  --border: #DCE2DC;
+  --border-strong: #C5CDC5;
+
+  --text: #12161A;
+  --text-muted: #5B655F;
+  --text-faint: #8B958F;
+
+  --accent: #1F6F5C;
+  --accent-hover: #185849;
+  --accent-soft: #DCEAE4;
+  --accent-text: #145545;
+
+  --good: #1F6F5C;
+  --good-soft: #DCEAE4;
+  --good-text: #145545;
+
+  --warning: #A9701F;
+  --warning-soft: #F1E3CE;
+  --warning-text: #7A5216;
+
+  --critical: #B23B3B;
+  --critical-soft: #F5E1E1;
+  --critical-text: #8A2C2C;
+
+  --shadow-sm: 0 1px 2px rgba(18, 22, 26, 0.04);
+  --shadow-md: 0 4px 16px rgba(18, 22, 26, 0.06);
+
+  --font-ui: "Manrope", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101413;
+    --surface: #171C1B;
+    --surface-sunken: #1D2321;
+    --border: #2A322D;
+    --border-strong: #3A433D;
+
+    --text: #E7EBE7;
+    --text-muted: #98A39C;
+    --text-faint: #626D67;
+
+    --accent: #4FBFA0;
+    --accent-hover: #6FD4B6;
+    --accent-soft: #1B2E29;
+    --accent-text: #6FD4B6;
+
+    --good: #4FBFA0;
+    --good-soft: #1B2E29;
+    --good-text: #6FD4B6;
+
+    --warning: #D9A354;
+    --warning-soft: #2E2517;
+    --warning-text: #E7BC7E;
+
+    --critical: #E27272;
+    --critical-soft: #3A1F1F;
+    --critical-text: #EF9B9B;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #101413;
+  --surface: #171C1B;
+  --surface-sunken: #1D2321;
+  --border: #2A322D;
+  --border-strong: #3A433D;
+
+  --text: #E7EBE7;
+  --text-muted: #98A39C;
+  --text-faint: #626D67;
+
+  --accent: #4FBFA0;
+  --accent-hover: #6FD4B6;
+  --accent-soft: #1B2E29;
+  --accent-text: #6FD4B6;
+
+  --good: #4FBFA0;
+  --good-soft: #1B2E29;
+  --good-text: #6FD4B6;
+
+  --warning: #D9A354;
+  --warning-soft: #2E2517;
+  --warning-text: #E7BC7E;
+
+  --critical: #E27272;
+  --critical-soft: #3A1F1F;
+  --critical-text: #EF9B9B;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+}

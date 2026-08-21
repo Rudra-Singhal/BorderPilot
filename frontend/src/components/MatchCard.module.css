@@ -1,0 +1,62 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: var(--surface);
+}
+
+.card + .card {
+  margin-top: 10px;
+}
+
+.route {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.party {
+  font-weight: 700;
+}
+
+.counterparty {
+  font-weight: 700;
+  color: var(--accent-text);
+}
+
+.arrow {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.justification {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+  margin: 0 0 10px;
+  max-width: 72ch;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.amount {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 13.5px;
+  margin-right: 4px;
+}
+
+.fallbackNote {
+  font-size: 11px;
+  color: var(--text-faint);
+  font-style: italic;
+}
