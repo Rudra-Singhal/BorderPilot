@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from app.db.session import Base, SessionLocal, engine
 from app.models import SME, Counterparty, Obligation, PaymentEvent
 from app.models.obligation import ObligationDirection, ObligationStatus
+from app.services.scoring import recompute_all_counterparty_scores
 
 ANCHOR = date(2026, 8, 21)  # fixed reference date so re-runs are deterministic
 
@@ -226,9 +227,17 @@ def run():
         seed_guaranteed_demo_scenarios(db, smes_by_name, counterparties_by_name)
 
         db.commit()
+
+        # Score every counterparty up front -- otherwise only ones that happen to land in a
+        # netting match ever get scored, leaving the rest "not scored" until someone calls
+        # the bulk recompute endpoint (which showed up as a wall of expected-but-noisy 404s
+        # on the Receivables page for a freshly seeded/reset environment).
+        scored = recompute_all_counterparty_scores(db)
+
         print(
             f"Seed complete: {len(smes_by_name)} SMEs, {len(counterparties_by_name)} counterparties, "
-            f"{seq} (sme, counterparty) obligation/payment-event pairs, plus guaranteed demo scenarios."
+            f"{seq} (sme, counterparty) obligation/payment-event pairs, plus guaranteed demo scenarios. "
+            f"{len(scored)} counterparties scored."
         )
     finally:
         db.close()
