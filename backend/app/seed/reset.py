@@ -12,6 +12,13 @@ from app.seed.seed import run as reseed
 
 # Deletion order respects foreign keys (children before parents).
 TABLES_IN_DELETE_ORDER = [
+    "audit_events",
+    "liquidity_events",
+    "settlements",
+    "compliance_requirements",
+    "financing_agreements",
+    "financing_offers",
+    "underwriting_decisions",
     "bank_packets",
     "offset_matches",
     "netting_runs",
@@ -19,6 +26,9 @@ TABLES_IN_DELETE_ORDER = [
     "payment_behavior_profiles",
     "payment_events",
     "obligations",
+    "invoices",
+    "currency_exposures",
+    "bank_nbfc_partners",
     "counterparties",
     "smes",
 ]

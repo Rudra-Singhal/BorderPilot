@@ -137,3 +137,32 @@ class BankPacketOut(BaseModel):
     auto_eligible_count: int
     needs_review_count: int
     body: dict
+
+
+class InvoiceOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    sme_id: uuid.UUID
+    counterparty_id: uuid.UUID
+    invoice_number: str
+    direction: ObligationDirection
+    amount: float
+    currency: str
+    invoice_date: date
+    due_date: date
+    po_reference: str | None
+    source: str
+    created_at: datetime
+
+
+class BankPartnerOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    name: str
+    partner_type: str
+    country: str
+    min_auto_tier: str
+    typical_latency_ms: int
+    created_at: datetime
