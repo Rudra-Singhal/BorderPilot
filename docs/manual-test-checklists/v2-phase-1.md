@@ -33,4 +33,31 @@ phases.
 - [x] Backend untouched by this phase — full pytest suite (33/33) still passing, confirming Phase 1 was a
       frontend-only phase as scoped
 
-**Result:** PASS — Phase 1 complete. Proceed to Phase 2 (Data Foundation).
+**Result:** PASS — Phase 1 complete.
+
+## Revision — visual direction pivot
+
+After reviewing the initial cool-emerald/dark-first build, the user supplied a reference image (a warm
+cream-and-white SaaS dashboard: soft white rounded cards, near-black primary buttons/logo mark, small
+colored icon badges on stat tiles) and asked for the direction to change to match it. Re-themed rather
+than re-architected — every component built in this phase kept its props/behavior, only the token values
+and a few structural details changed:
+
+- `tokens.css`: warm cream `--bg`, white `--surface`, near-black `--accent` (inverts to near-white in dark
+  mode — fixed a real bug this exposed: `Button`'s primary variant had hardcoded `color: white`, which
+  would have been invisible against the now-near-white dark-mode accent; changed to `color: var(--bg)`,
+  which is correct in both themes by construction), new `--gold` decorative token for icon badges, larger
+  card radius (14px → 22px)
+- `FinancialMetric` gained an `icon`/`iconTone` prop and became self-carding (white rounded card with its
+  own shadow, matching the reference's stat-card signature) — consolidated `StatTile` into it (deleted,
+  now redundant) and migrated all 3 usages (Dashboard, NettingRunDetail, PacketView)
+- Fixed two resulting double-card nestings (`CashForecast`, `Liquidity`) where a now-self-carding
+  `FinancialMetric` was still wrapped in an outer `Card`
+- `DESIGN.md` §4/§5/§7/§8 updated to document the revised direction and its rationale
+
+Re-verified after the pivot: full click-through screenshotted again (Overview, Liquidity, Cash & Forecast
+incl. live slider recompute, Counterparties, a live Netting Run detail + Bank Packet page with real
+backend data), both themes checked again (including the dark-mode button-contrast fix), `tsc -b` / build /
+lint all clean, backend untouched.
+
+**Result:** PASS — revision verified. Proceed to Phase 2 (Data Foundation).

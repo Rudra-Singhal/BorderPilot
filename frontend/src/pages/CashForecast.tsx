@@ -5,6 +5,7 @@ import { PhaseNotice } from "../components/PhaseNotice";
 import { FanChart, type FanChartPoint } from "../components/FanChart";
 import { ScenarioSlider } from "../components/ScenarioSlider";
 import { FinancialMetric } from "../components/FinancialMetric";
+import { IconAlert, IconTrend } from "../components/icons";
 
 function buildMockForecast(delayDays: number): FanChartPoint[] {
   const days = [0, 15, 30, 45, 60, 75, 90];
@@ -58,19 +59,24 @@ export function CashForecast() {
           onChange={setDelayDays}
           formatValue={(v) => `${v}d`}
         />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20 }}>
-          <FinancialMetric
-            label="60-day projected cash (80% confidence)"
-            value={`₹${(day60.low80 / 100000).toFixed(1)}L–₹${(day60.high80 / 100000).toFixed(1)}L`}
-          />
-          <FinancialMetric
-            label="Liquidity gap"
-            value={gapDay ? gapDay.date : "None projected"}
-            trend={gapDay ? "down" : "flat"}
-            trendLabel={gapDay ? "within 90 days" : undefined}
-          />
-        </div>
       </Card>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 16 }}>
+        <FinancialMetric
+          label="60-day projected cash (80% confidence)"
+          value={`₹${(day60.low80 / 100000).toFixed(1)}L–₹${(day60.high80 / 100000).toFixed(1)}L`}
+          icon={<IconTrend />}
+          iconTone="good"
+        />
+        <FinancialMetric
+          label="Liquidity gap"
+          value={gapDay ? gapDay.date : "None projected"}
+          trend={gapDay ? "down" : "flat"}
+          trendLabel={gapDay ? "within 90 days" : undefined}
+          icon={<IconAlert />}
+          iconTone={gapDay ? "critical" : "good"}
+        />
+      </div>
     </div>
   );
 }

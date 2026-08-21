@@ -150,6 +150,43 @@ export function IconAssistant({ size = 17 }: IconProps) {
   );
 }
 
+export function IconPeople({ size = 16 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <circle cx="7.3" cy="6.5" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M2.5 16c0-2.5 2.1-4.3 4.8-4.3s4.8 1.8 4.8 4.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="14" cy="7.5" r="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12.8 11.9c2.3.2 4.2 1.8 4.2 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconCash({ size = 16 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <rect x="2" y="5" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="10" cy="10" r="2.6" stroke="currentColor" strokeWidth="1.5" />
+      <line x1="4.5" y1="10" x2="4.5" y2="10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="15.5" y1="10" x2="15.5" y2="10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconAlert({ size = 16 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <path
+        d="M10 2.5 18 16.5H2L10 2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <line x1="10" y1="8" x2="10" y2="11.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="10" y1="14" x2="10" y2="14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function IconActivity({ size = 17 }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" fill="none">

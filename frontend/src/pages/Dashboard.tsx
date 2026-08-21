@@ -4,11 +4,11 @@ import { useAsync } from "../lib/useAsync";
 import { toUsd } from "../lib/fx";
 import { formatDateTime, formatUsd } from "../lib/format";
 import { PageHeader } from "../components/PageHeader";
-import { StatTile } from "../components/StatTile";
+import { FinancialMetric } from "../components/FinancialMetric";
 import { Card } from "../components/Card";
 import { ExposureBar } from "../components/ExposureBar";
 import { LoadingState, ErrorState } from "../components/AsyncState";
-import { IconArrowRight } from "../components/icons";
+import { IconArrowRight, IconBuildings, IconCash, IconFlow, IconPeople } from "../components/icons";
 import styles from "./Dashboard.module.css";
 
 export function Dashboard() {
@@ -42,10 +42,32 @@ export function Dashboard() {
       />
 
       <div className={styles.statGrid}>
-        <StatTile label="SMEs onboarded" value={String(smes.length)} />
-        <StatTile label="Pooled counterparties" value={String(counterparties.length)} />
-        <StatTile label="Gross obligations" value={formatUsd(grossUsd)} hint="USD-equivalent, static FX table" />
-        <StatTile label="Open / netted" value={`${openCount} / ${nettedCount}`} hint="obligation status" />
+        <FinancialMetric
+          label="SMEs onboarded"
+          value={String(smes.length)}
+          icon={<IconPeople />}
+          iconTone="gold"
+        />
+        <FinancialMetric
+          label="Pooled counterparties"
+          value={String(counterparties.length)}
+          icon={<IconBuildings />}
+          iconTone="info"
+        />
+        <FinancialMetric
+          label="Gross obligations"
+          value={formatUsd(grossUsd)}
+          hint="USD-equivalent, static FX table"
+          icon={<IconCash />}
+          iconTone="good"
+        />
+        <FinancialMetric
+          label="Open / netted"
+          value={`${openCount} / ${nettedCount}`}
+          hint="obligation status"
+          icon={<IconFlow />}
+          iconTone="warning"
+        />
       </div>
 
       <div className={styles.twoCol}>

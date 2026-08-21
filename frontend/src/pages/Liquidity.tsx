@@ -1,8 +1,8 @@
 import { PageHeader } from "../components/PageHeader";
-import { Card } from "../components/Card";
 import { PhaseNotice } from "../components/PhaseNotice";
 import { FinancialMetric } from "../components/FinancialMetric";
 import { LiquidityOpportunityCard, type LiquidityOpportunity } from "../components/LiquidityOpportunityCard";
+import { IconDroplet } from "../components/icons";
 
 const MOCK: LiquidityOpportunity[] = [
   {
@@ -45,14 +45,14 @@ export function Liquidity() {
         note="Recommendation logic, the mock lender call, and live cash-forecast updates land in Phase 5. This preview shows the intended card shape and copy tone."
       />
 
-      <Card>
-        <FinancialMetric
-          size="display"
-          label="Recommended unlock (minimum set to close the gap)"
-          value={`$${total.toLocaleString()}`}
-          hint="From 2 of 9 eligible receivables — not everything, just enough."
-        />
-      </Card>
+      <FinancialMetric
+        size="display"
+        label="Recommended unlock (minimum set to close the gap)"
+        value={`$${total.toLocaleString()}`}
+        hint="From 2 of 9 eligible receivables — not everything, just enough."
+        icon={<IconDroplet />}
+        iconTone="gold"
+      />
 
       <div style={{ height: 16 }} />
 

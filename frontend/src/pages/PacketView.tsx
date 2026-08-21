@@ -3,7 +3,7 @@ import { api } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { formatAmount, formatDateTime, formatUsd } from "../lib/format";
 import { PageHeader } from "../components/PageHeader";
-import { StatTile } from "../components/StatTile";
+import { FinancialMetric } from "../components/FinancialMetric";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { MatchCard } from "../components/MatchCard";
@@ -49,10 +49,10 @@ export function PacketView() {
       />
 
       <div className={styles.statGrid}>
-        <StatTile label="Gross obligations" value={formatUsd(packet.gross_obligations_usd)} />
-        <StatTile label="Total matched" value={formatUsd(packet.total_matched_usd)} />
-        <StatTile label="Net settlement required" value={formatUsd(packet.net_settlement_usd)} />
-        <StatTile label="Est. FX / friction saved" value={formatUsd(packet.fx_friction_savings_usd)} />
+        <FinancialMetric label="Gross obligations" value={formatUsd(packet.gross_obligations_usd)} />
+        <FinancialMetric label="Total matched" value={formatUsd(packet.total_matched_usd)} />
+        <FinancialMetric label="Net settlement required" value={formatUsd(packet.net_settlement_usd)} />
+        <FinancialMetric label="Est. FX / friction saved" value={formatUsd(packet.fx_friction_savings_usd)} />
       </div>
 
       <Card title={`Proposed matches (${packet.matches_count})`}>

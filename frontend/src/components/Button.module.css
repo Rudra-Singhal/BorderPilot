@@ -5,8 +5,8 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
   transition: background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
@@ -20,7 +20,9 @@
 
 .primary {
   background: var(--accent);
-  color: white;
+  /* --bg is the ground tone opposite --accent in both themes (cream-on-black in
+     light, dark-on-cream in dark), so this stays legible without a hardcoded color */
+  color: var(--bg);
 }
 
 .primary:hover:not(:disabled) {

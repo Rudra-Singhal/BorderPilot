@@ -56,13 +56,17 @@ toggle, not a separate nav item.
 
 ## 4. Design language & brand direction
 
-**Premium institutional fintech. Trusted, calm, analytical.** Not crypto (no neon, no gradients-for-their-
-own-sake, no glow effects). Not gaming (no badges-as-decoration, no playful mascots). Not an AI gimmick
-(no chat-bubble-first layouts, no sparkle icons, no "magic" language — the copy always says what the
-system *computed*, never what it "thinks"). The visual model is closer to a modern trading terminal or an
-underwriting workbench than a consumer app: dense where density carries information, spacious where a
-number needs to land with weight, and always legible at a glance from across a room (this is a *demo*
-product — numbers must read at judge-viewing distance).
+**Premium institutional fintech. Trusted, calm, analytical — expressed in a warm, editorial register, not
+a dark trading-terminal one.** Revised from an initial cool-emerald/dark-mode-first direction (v1) after
+user feedback pointed at a warm cream-and-white, soft-card, black-accent reference (a modern SaaS
+dashboard: cream page ground, pure-white rounded cards, near-black primary buttons/logo mark, small
+colored icon badges on stat tiles). That reference's *feel* — calm, spacious, confident, unmistakably
+premium — is exactly right for BorderPilot; its literal widgets (generic donut charts, avatar activity
+feeds unrelated to trade finance) are not copied wholesale, since every element still has to earn its
+place against real BorderPilot data. Not crypto (no neon, no gradients-for-their-own-sake, no glow
+effects). Not gaming (no badges-as-decoration, no playful mascots). Not an AI gimmick (no chat-bubble-
+first layouts, no sparkle icons, no "magic" language — the copy always says what the system *computed*,
+never what it "thinks"). Numbers must read at judge-viewing distance.
 
 Every screen has exactly one dominant question (§26), stated or clearly implied by its layout:
 
@@ -79,37 +83,43 @@ Every screen has exactly one dominant question (§26), stated or clearly implied
 
 ## 5. Color tokens
 
-Extends the existing palette (kept from v1 — deliberate, non-generic: deep emerald, not the AI-cliché
-purple gradient or terracotta). New tokens add a fourth semantic state (`alert`, distinct from `critical`)
-for time-sensitive-but-not-yet-dangerous situations (a liquidity gap 30 days out, not a failed payment),
-and a dedicated chart palette kept separate from semantic risk color so a forecast band is never confused
-with a risk tier.
+Revised to a warm-neutral system: cream page ground, pure-white cards/sidebar, near-black as the primary
+*interactive* color (buttons, active nav, logo mark) rather than a brand hue — color is spent entirely on
+semantic meaning (risk tier, status) and one decorative accent (`--gold`, the stat-card icon-badge tone),
+never on chrome for its own sake.
 
 ```css
-/* existing, unchanged */
---bg, --surface, --surface-sunken, --border, --border-strong
+--bg          /* warm cream page ground */
+--surface     /* pure white — cards, sidebar */
+--surface-sunken, --border, --border-strong
+
 --text, --text-muted, --text-faint
+
+/* primary interactive color -- near-black in light mode, inverts to near-white in
+   dark mode. Buttons/active-nav text always pairs with --bg (not a hardcoded
+   white), since which end is "light" flips between themes. */
 --accent, --accent-hover, --accent-soft, --accent-text
+
+/* decorative highlight only -- stat-card icon badges, never risk-signaling */
+--gold, --gold-soft, --gold-text
+
 --good, --good-soft, --good-text        /* tier A/B, on-time, approved, settled */
 --warning, --warning-soft, --warning-text /* tier C, needs-review, pending */
 --critical, --critical-soft, --critical-text /* tier D/E, rejected, significantly late */
-
-/* new for v2 */
 --alert, --alert-soft, --alert-text      /* time-sensitive: liquidity gap approaching, offer expiring */
 --info, --info-soft, --info-text         /* neutral system information, AI-sourced content marker */
 
-/* chart palette — sequential, single-hue-family, never doubles as a semantic risk color */
---chart-line       /* the actual/base-case line */
---chart-band-80     /* 80% confidence band fill */
---chart-band-95     /* 95% confidence band fill (lighter) */
---chart-grid        /* gridlines */
---chart-axis         /* axis labels */
+/* chart palette — warm-neutral fan bands, never doubles as a semantic risk color */
+--chart-line, --chart-line-compare, --chart-band-80, --chart-band-95, --chart-grid, --chart-axis
 ```
 
-Dark-mode values follow the same derivation rule as the existing tokens (brightened, desaturated slightly,
-paired soft/text variants). `--alert` sits between `--warning` (amber) and `--critical` (red) on the hue
-wheel but is visually distinct at a glance — a warm gold rather than amber-brown, so a liquidity-gap
-countdown never gets mistaken for a rejected financing decision.
+**Icon-badge tone convention** (`FinancialMetric`'s `iconTone` prop): `gold` for neutral/informational
+counts (SMEs onboarded, unlock amount), `good`/`warning`/`critical` when the metric itself carries a risk
+judgment (a liquidity gap present vs. none), `info` for pooled/network-scale facts (counterparty count).
+
+Dark mode inverts the neutral axis (near-black ground, near-white accent) but keeps every semantic token
+(`good`/`warning`/`critical`/`alert`/`info`/`gold`) a stable, recognizable hue in both themes — a red
+critical badge is always red, whichever theme is active.
 
 ## 6. Typography
 
@@ -135,9 +145,9 @@ scannable instead of jagged.
 --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
 --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px;
 
---radius-sm: 6px;   /* pills, small chips */
---radius-md: 10px;  /* cards, inputs */
---radius-lg: 14px;  /* modals, drawers */
+--radius-sm: 8px;   /* pills, buttons, nav items */
+--radius-md: 14px;  /* inputs, small panels */
+--radius-lg: 22px;  /* cards -- the soft, generous rounding the reference direction calls for */
 
 --shadow-sm  /* existing: resting card */
 --shadow-md  /* existing: raised card, dropdown */
@@ -150,9 +160,10 @@ Layout spacing always comes from flex/grid `gap`, never stacked margins — carr
 
 Full primitive library (built in this phase, populated with real data from Phase 2 onward):
 
-- **`FinancialMetric`** — the generalized stat tile: value (mono, tabular), label, optional trend
-  indicator (▲/▼ + delta), optional hint line, optional size variant (`display` for the one hero number
-  per screen, `default` for supporting metrics).
+- **`FinancialMetric`** — the self-carding stat tile (white rounded card, own shadow — not meant to be
+  nested inside another `Card`): bold value, label, optional trend indicator (▲/▼ + delta), optional hint
+  line, optional `display` size for the one hero number per screen, and an optional circular icon badge
+  (`icon` + `iconTone`) in the top-right corner per the reference direction's stat-card signature.
 - **`RiskBadge`** — tier A–E as a colored badge with the numeric score alongside (`Tier B · 84`), color
   from the good/warning/critical semantic tokens via the existing tier-bucket mapping.
 - **`MoneyValue`** — consistent currency formatting (symbol, thousands separator, decimals), always mono/

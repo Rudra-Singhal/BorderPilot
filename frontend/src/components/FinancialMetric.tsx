@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
 import styles from "./FinancialMetric.module.css";
 
 type Trend = "up" | "down" | "flat";
+type IconTone = "gold" | "good" | "warning" | "critical" | "info";
 
 export function FinancialMetric({
   label,
@@ -9,6 +11,8 @@ export function FinancialMetric({
   trend,
   trendLabel,
   size = "default",
+  icon,
+  iconTone = "gold",
 }: {
   label: string;
   value: string;
@@ -16,9 +20,12 @@ export function FinancialMetric({
   trend?: Trend;
   trendLabel?: string;
   size?: "display" | "default";
+  icon?: ReactNode;
+  iconTone?: IconTone;
 }) {
   return (
-    <div className={styles.metric}>
+    <div className={styles.card}>
+      {icon && <span className={`${styles.iconBadge} ${styles[iconTone]}`}>{icon}</span>}
       <div className={`${styles.value} ${size === "display" ? styles.display : ""}`}>{value}</div>
       <div className={styles.labelRow}>
         <span className={styles.label}>{label}</span>

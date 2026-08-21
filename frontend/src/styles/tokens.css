@@ -1,53 +1,58 @@
 :root {
-  --bg: #F3F5F1;
+  /* warm neutral base -- cream page, white cards/sidebar, soft warm borders */
+  --bg: #F5F2EB;
   --surface: #FFFFFF;
-  --surface-sunken: #ECEFEA;
-  --border: #DCE2DC;
-  --border-strong: #C5CDC5;
+  --surface-sunken: #F6F3EC;
+  --border: #EAE4D6;
+  --border-strong: #DBD3BF;
 
-  --text: #12161A;
-  --text-muted: #5B655F;
-  --text-faint: #8B958F;
+  --text: #1C1917;
+  --text-muted: #6F6A5E;
+  --text-faint: #A39D8D;
 
-  --accent: #1F6F5C;
-  --accent-hover: #185849;
-  --accent-soft: #DCEAE4;
-  --accent-text: #145545;
+  /* primary interactive color is near-black (buttons, active nav, links) --
+     color is reserved for semantic risk/status meaning, not brand chrome */
+  --accent: #1C1917;
+  --accent-hover: #33302B;
+  --accent-soft: #EEE8D9;
+  --accent-text: #1C1917;
 
-  --good: #1F6F5C;
-  --good-soft: #DCEAE4;
-  --good-text: #145545;
+  /* decorative highlight -- stat-card icon badges, logo mark. Distinct role from
+     --warning even though the hue is nearby: this one never signals risk. */
+  --gold: #C9974F;
+  --gold-soft: #F3E6D0;
+  --gold-text: #8A6423;
+
+  --good: #2F7A4F;
+  --good-soft: #E1EFE3;
+  --good-text: #1F5C38;
 
   --warning: #A9701F;
   --warning-soft: #F1E3CE;
   --warning-text: #7A5216;
 
-  --critical: #B23B3B;
-  --critical-soft: #F5E1E1;
-  --critical-text: #8A2C2C;
+  --critical: #C0433D;
+  --critical-soft: #F6E1DF;
+  --critical-text: #942F2A;
 
-  /* time-sensitive-but-not-yet-dangerous: liquidity gap approaching, offer expiring.
-     Deliberately orange-toned, distinct from --warning's brown-amber. */
   --alert: #C15A1F;
   --alert-soft: #F6E1D0;
   --alert-text: #8A3F12;
 
-  /* neutral system information / AI-sourced content marker -- never used for risk */
   --info: #3B6FB0;
   --info-soft: #DCE6F2;
   --info-text: #2A5384;
 
-  /* chart palette -- kept separate from semantic risk color so a forecast band is
-     never confused with a risk tier */
-  --chart-line: #1F6F5C;
-  --chart-band-80: #BFE0D5;
-  --chart-band-95: #E3F1EC;
-  --chart-grid: #E4E9E4;
-  --chart-axis: #8B958F;
+  --chart-line: #1C1917;
+  --chart-line-compare: #B9B2A0;
+  --chart-band-80: #E9DDC3;
+  --chart-band-95: #F3ECDD;
+  --chart-grid: #EFEAE0;
+  --chart-axis: #A39D8D;
 
-  --shadow-sm: 0 1px 2px rgba(18, 22, 26, 0.04);
-  --shadow-md: 0 4px 16px rgba(18, 22, 26, 0.06);
-  --shadow-lg: 0 12px 40px rgba(18, 22, 26, 0.14);
+  --shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.04), 0 1px 1px rgba(28, 25, 23, 0.03);
+  --shadow-md: 0 8px 24px rgba(28, 25, 23, 0.07);
+  --shadow-lg: 0 20px 48px rgba(28, 25, 23, 0.14);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -59,9 +64,9 @@
   --space-10: 40px;
   --space-12: 48px;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
 
   --font-ui: "Manrope", -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
@@ -69,32 +74,36 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #101413;
-    --surface: #171C1B;
-    --surface-sunken: #1D2321;
-    --border: #2A322D;
-    --border-strong: #3A433D;
+    --bg: #17150F;
+    --surface: #201D17;
+    --surface-sunken: #262219;
+    --border: #332E22;
+    --border-strong: #453F2E;
 
-    --text: #E7EBE7;
-    --text-muted: #98A39C;
-    --text-faint: #626D67;
+    --text: #F3EFE6;
+    --text-muted: #B0A895;
+    --text-faint: #766F5D;
 
-    --accent: #4FBFA0;
-    --accent-hover: #6FD4B6;
-    --accent-soft: #1B2E29;
-    --accent-text: #6FD4B6;
+    --accent: #F3EFE6;
+    --accent-hover: #FFFFFF;
+    --accent-soft: #332E22;
+    --accent-text: #F3EFE6;
 
-    --good: #4FBFA0;
-    --good-soft: #1B2E29;
-    --good-text: #6FD4B6;
+    --gold: #E0B674;
+    --gold-soft: #3A2E17;
+    --gold-text: #F0CF95;
+
+    --good: #5CA97D;
+    --good-soft: #1E3226;
+    --good-text: #8FD1AC;
 
     --warning: #D9A354;
     --warning-soft: #2E2517;
     --warning-text: #E7BC7E;
 
-    --critical: #E27272;
-    --critical-soft: #3A1F1F;
-    --critical-text: #EF9B9B;
+    --critical: #DE7A73;
+    --critical-soft: #3A1F1D;
+    --critical-text: #EFA39D;
 
     --alert: #E0935A;
     --alert-soft: #3A2413;
@@ -104,11 +113,12 @@
     --info-soft: #1C2733;
     --info-text: #A8C4E8;
 
-    --chart-line: #4FBFA0;
-    --chart-band-80: #2A4A41;
-    --chart-band-95: #1C332C;
-    --chart-grid: #26302B;
-    --chart-axis: #626D67;
+    --chart-line: #F3EFE6;
+    --chart-line-compare: #6B6555;
+    --chart-band-80: #3A331F;
+    --chart-band-95: #262115;
+    --chart-grid: #292418;
+    --chart-axis: #766F5D;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
@@ -117,32 +127,36 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #101413;
-  --surface: #171C1B;
-  --surface-sunken: #1D2321;
-  --border: #2A322D;
-  --border-strong: #3A433D;
+  --bg: #17150F;
+  --surface: #201D17;
+  --surface-sunken: #262219;
+  --border: #332E22;
+  --border-strong: #453F2E;
 
-  --text: #E7EBE7;
-  --text-muted: #98A39C;
-  --text-faint: #626D67;
+  --text: #F3EFE6;
+  --text-muted: #B0A895;
+  --text-faint: #766F5D;
 
-  --accent: #4FBFA0;
-  --accent-hover: #6FD4B6;
-  --accent-soft: #1B2E29;
-  --accent-text: #6FD4B6;
+  --accent: #F3EFE6;
+  --accent-hover: #FFFFFF;
+  --accent-soft: #332E22;
+  --accent-text: #F3EFE6;
 
-  --good: #4FBFA0;
-  --good-soft: #1B2E29;
-  --good-text: #6FD4B6;
+  --gold: #E0B674;
+  --gold-soft: #3A2E17;
+  --gold-text: #F0CF95;
+
+  --good: #5CA97D;
+  --good-soft: #1E3226;
+  --good-text: #8FD1AC;
 
   --warning: #D9A354;
   --warning-soft: #2E2517;
   --warning-text: #E7BC7E;
 
-  --critical: #E27272;
-  --critical-soft: #3A1F1F;
-  --critical-text: #EF9B9B;
+  --critical: #DE7A73;
+  --critical-soft: #3A1F1D;
+  --critical-text: #EFA39D;
 
   --alert: #E0935A;
   --alert-soft: #3A2413;
@@ -152,11 +166,12 @@
   --info-soft: #1C2733;
   --info-text: #A8C4E8;
 
-  --chart-line: #4FBFA0;
-  --chart-band-80: #2A4A41;
-  --chart-band-95: #1C332C;
-  --chart-grid: #26302B;
-  --chart-axis: #626D67;
+  --chart-line: #F3EFE6;
+  --chart-line-compare: #6B6555;
+  --chart-band-80: #3A331F;
+  --chart-band-95: #262115;
+  --chart-grid: #292418;
+  --chart-axis: #766F5D;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);

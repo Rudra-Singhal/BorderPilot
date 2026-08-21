@@ -3,7 +3,7 @@ import { api } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { formatDateTime } from "../lib/format";
 import { PageHeader } from "../components/PageHeader";
-import { StatTile } from "../components/StatTile";
+import { FinancialMetric } from "../components/FinancialMetric";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { MatchCard } from "../components/MatchCard";
@@ -40,10 +40,10 @@ export function NettingRunDetail() {
       />
 
       <div className={styles.statGrid}>
-        <StatTile label="Obligations considered" value={String(run.obligations_considered)} />
-        <StatTile label="Matches created" value={String(run.matches_created)} />
-        <StatTile label="Auto-eligible" value={String(autoEligible.length)} />
-        <StatTile label="Needs review" value={String(needsReview.length)} />
+        <FinancialMetric label="Obligations considered" value={String(run.obligations_considered)} />
+        <FinancialMetric label="Matches created" value={String(run.matches_created)} />
+        <FinancialMetric label="Auto-eligible" value={String(autoEligible.length)} />
+        <FinancialMetric label="Needs review" value={String(needsReview.length)} />
       </div>
 
       <div className={styles.sections}>
