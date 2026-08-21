@@ -1,0 +1,204 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>BorderPilot Netting Packet</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "IBM Plex Sans", "Segoe UI", -apple-system, sans-serif;
+    color: #14181B;
+    background: #F3F5F1;
+    margin: 0;
+    padding: 40px 24px 80px;
+    line-height: 1.5;
+  }
+  .sheet { max-width: 880px; margin: 0 auto; background: #FBFCFA; border: 1px solid #D9E0DA;
+           border-radius: 10px; padding: 40px 44px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .meta { color: #5B655F; font-size: 13px; margin-bottom: 28px; font-family: ui-monospace, monospace; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; color: #5B655F;
+       border-bottom: 1px solid #D9E0DA; padding-bottom: 8px; margin: 32px 0 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-bottom: 6px; }
+  th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid #E4E9E5; }
+  th { color: #5B655F; font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; }
+  td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #D9E0DA;
+                  border: 1px solid #D9E0DA; border-radius: 8px; overflow: hidden; }
+  .summary-cell { background: #FBFCFA; padding: 14px 16px; }
+  .summary-cell .val { font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .summary-cell .lbl { font-size: 11px; color: #5B655F; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .pill-auto { background: #DCEAE4; color: #165545; }
+  .pill-review { background: #F1E3CE; color: #A9701F; }
+  .justification { color: #5B655F; font-size: 12.5px; margin-top: 2px; }
+  .flagged-section { background: #F1E3CE22; border: 1px solid #E7D3AC; border-radius: 8px; padding: 4px 16px; }
+  @media print { body { background: #fff; } .sheet { border: none; padding: 0; } }
+</style></head>
+<body>
+<div style="max-width:880px;margin:0 auto 16px;padding:12px 18px;background:#F1E3CE;border:1px solid #E7D3AC;border-radius:8px;font-family:sans-serif;font-size:13px;color:#7A5216;">
+  <strong>Static fallback snapshot</strong> — captured during Phase 8 rehearsal from a real, verified netting run
+  (reset + reseed + trigger, repeated twice with identical results). No backend connection needed to view this page.
+</div>
+
+<div class="sheet">
+  <h1>BorderPilot &mdash; Netting Packet</h1>
+  <div class="meta">Netting run 4e77df5d-12be-4e6b-9c33-78562b8b74a2 &middot; executed 2026-08-21T17:51:21.661831+00:00 &middot; generated 2026-08-21 17:52:11.727211+00:00</div>
+
+  <div class="summary-grid">
+    <div class="summary-cell"><div class="val">$174,426.23</div><div class="lbl">Gross obligations</div></div>
+    <div class="summary-cell"><div class="val">$1,332.00</div><div class="lbl">Total matched</div></div>
+    <div class="summary-cell"><div class="val">$171,762.23</div><div class="lbl">Net settlement required</div></div>
+    <div class="summary-cell"><div class="val">$6.66</div><div class="lbl">Est. FX/friction saved</div></div>
+  </div>
+
+  <h2>Proposed matches (4)</h2>
+  <table>
+    <thead><tr><th>Route</th><th class="num">Amount (USD)</th><th>Tier</th><th>Eligibility</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>Pacific Foods &rarr; Global Retail Corp &rarr; Acme Textiles
+            <div class="justification">This netting arrangement reduces settlement obligations by $60.0 USD-equivalent across the payment chain. However, Global Retail Corp's Reliability tier E rating (35.32/100) and payment history showing only 11.1% on-time performance with a median 2.0-day delay present material counterparty risk.</div>
+          </td>
+          <td class="num">60.00</td>
+          <td>E</td>
+          <td><span class="pill pill-review">Needs review</span></td>
+        </tr>
+        <tr>
+          <td>Kestrel Electronics &rarr; Northwind Traders &rarr; Nordic Gears
+            <div class="justification">This netting match reduces direct exposure to Northwind Traders by offsetting a 762.0 USD-equivalent receivable against an equal payable, though the counterparty's D-tier reliability rating and 16.7% on-time payment history present elevated settlement risk.</div>
+          </td>
+          <td class="num">762.00</td>
+          <td>D</td>
+          <td><span class="pill pill-review">Needs review</span></td>
+        </tr>
+        <tr>
+          <td>Kestrel Electronics &rarr; Northwind Traders &rarr; Baltic Steel
+            <div class="justification">This netting match reduces counterparty exposure to Northwind Traders (GB) by 508.0 USD-equivalent despite its tier D reliability rating. The match is supported by recorded payment history with this counterparty, though the 16.7% on-time payment rate and 1.5-day median delay indicate elevated execution risk.</div>
+          </td>
+          <td class="num">508.00</td>
+          <td>D</td>
+          <td><span class="pill pill-review">Needs review</span></td>
+        </tr>
+        <tr>
+          <td>Acme Textiles &rarr; Harbor Logistics &rarr; Pacific Foods
+            <div class="justification">Harbor Logistics has a B-tier reliability rating with an 84.6% on-time payment rate across 13 recorded payments, supporting the proposed 2.0 USD-equivalent net match between Acme Textiles and Pacific Foods. The median delay of 0.0 days in Harbor Logistics's pooled payment history demonstrates consistent payment performance suitable for netting.</div>
+          </td>
+          <td class="num">2.00</td>
+          <td>B</td>
+          <td><span class="pill pill-auto">Auto-eligible</span></td>
+        </tr></tbody>
+  </table>
+
+  <h2>Flagged for manual review</h2>
+  <div class="flagged-section">
+    <p style="font-size:13px;color:#5B655F;">
+      3 match(es) below tier B, plus 17 obligation(s)
+      with unmatched or partial residual amounts.
+    </p>
+    <table>
+      <thead><tr><th>Obligation</th><th class="num">Original amount</th><th class="num">Residual (USD)</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Pacific Foods &middot; Meridian Traders (receivable)</td>
+          <td class="num">15,262.00 USD</td>
+          <td class="num">15,262.00</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Nordic Gears &middot; Vega Materials (receivable)</td>
+          <td class="num">16,728.00 EUR</td>
+          <td class="num">18,066.24</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Acme Textiles &middot; Falcon Supply Co (payable)</td>
+          <td class="num">10,131.00 INR</td>
+          <td class="num">121.57</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Kestrel Electronics &middot; British Components (payable)</td>
+          <td class="num">14,529.00 GBP</td>
+          <td class="num">18,451.83</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Pacific Foods &middot; Harbor Logistics (receivable)</td>
+          <td class="num">12,330.00 USD</td>
+          <td class="num">12,330.00</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Baltic Steel &middot; EuroMart GmbH (receivable)</td>
+          <td class="num">7,932.00 EUR</td>
+          <td class="num">8,566.56</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Nordic Gears &middot; Northwind Traders (receivable)</td>
+          <td class="num">9,398.00 EUR</td>
+          <td class="num">10,149.84</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Andes Coffee Co &middot; Andina Exports (payable)</td>
+          <td class="num">13,063.00 USD</td>
+          <td class="num">13,063.00</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Kestrel Electronics &middot; Falcon Supply Co (receivable)</td>
+          <td class="num">10,864.00 GBP</td>
+          <td class="num">13,797.28</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Acme Textiles &middot; Sunrise Distribution (payable)</td>
+          <td class="num">11,597.00 INR</td>
+          <td class="num">139.16</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Nordic Gears &middot; EuroMart GmbH (payable)</td>
+          <td class="num">7,199.00 EUR</td>
+          <td class="num">7,774.92</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Andes Coffee Co &middot; Coastal Foods Inc (payable)</td>
+          <td class="num">15,995.00 USD</td>
+          <td class="num">15,995.00</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Kestrel Electronics &middot; Northwind Traders (payable)</td>
+          <td class="num">8,665.00 GBP</td>
+          <td class="num">11,004.55</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Pacific Foods &middot; Global Retail Corp (payable)</td>
+          <td class="num">5,733.00 USD</td>
+          <td class="num">5,673.00</td>
+          <td>partially matched</td>
+        </tr>
+        <tr>
+          <td>Baltic Steel &middot; Steel Works Ltd (receivable)</td>
+          <td class="num">13,796.00 EUR</td>
+          <td class="num">14,899.68</td>
+          <td>unmatched</td>
+        </tr>
+        <tr>
+          <td>Acme Textiles &middot; Harbor Logistics (payable)</td>
+          <td class="num">300.00 INR</td>
+          <td class="num">1.60</td>
+          <td>partially matched</td>
+        </tr>
+        <tr>
+          <td>Andes Coffee Co &middot; Global Retail Corp (receivable)</td>
+          <td class="num">6,466.00 USD</td>
+          <td class="num">6,466.00</td>
+          <td>unmatched</td>
+        </tr></tbody>
+    </table>
+  </div>
+</div>
+</body></html>

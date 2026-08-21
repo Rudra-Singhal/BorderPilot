@@ -127,6 +127,80 @@ def seed_obligations_and_events(
             )
 
 
+def _add_obligation_if_new(db: Session, sme: SME, counterparty: Counterparty, direction, amount, currency, settlement_date):
+    """Adds an extra obligation beyond the one-per-pair from the main loop, keyed on the
+    settlement date so a distinct demo-scenario date makes this idempotent on re-run."""
+    existing = (
+        db.query(Obligation)
+        .filter_by(sme_id=sme.id, counterparty_id=counterparty.id, expected_settlement_date=settlement_date)
+        .count()
+    )
+    if existing == 0:
+        db.add(
+            Obligation(
+                sme_id=sme.id,
+                counterparty_id=counterparty.id,
+                direction=direction,
+                amount=amount,
+                currency=currency,
+                expected_settlement_date=settlement_date,
+                status=ObligationStatus.OPEN,
+            )
+        )
+
+
+def _add_payment_event_if_new(db: Session, sme: SME, counterparty: Counterparty, due_date, paid_date, amount, currency):
+    existing = (
+        db.query(PaymentEvent)
+        .filter_by(sme_id=sme.id, counterparty_id=counterparty.id, due_date=due_date)
+        .count()
+    )
+    if existing == 0:
+        db.add(
+            PaymentEvent(
+                counterparty_id=counterparty.id,
+                sme_id=sme.id,
+                obligation_id=None,
+                due_date=due_date,
+                paid_date=paid_date,
+                amount=amount,
+                currency=currency,
+            )
+        )
+
+
+def seed_guaranteed_demo_scenarios(db: Session, smes_by_name: dict, counterparties_by_name: dict) -> None:
+    """Bakes the two proof points already hand-verified during Phases 3-4-5 directly into
+    the base dataset, so every demo replay -- not just a manually-poked one -- shows: (a) a
+    multilateral match (one payable split across two different SMEs' receivables through a
+    shared counterparty), and (b) a naturally tier-B counterparty producing an auto-eligible
+    match. Without this, a fresh reset only ever reproduces the single thin cross-currency
+    match from the base loop.
+    """
+    kestrel = smes_by_name["Kestrel Electronics"]
+    nordic = smes_by_name["Nordic Gears"]
+    baltic = smes_by_name["Baltic Steel"]
+    acme = smes_by_name["Acme Textiles"]
+    pacific = smes_by_name["Pacific Foods"]
+    northwind = counterparties_by_name["Northwind Traders"]
+    harbor = counterparties_by_name["Harbor Logistics"]
+
+    # Multilateral: one payable, two receivables, one shared counterparty -- same bucket.
+    multilateral_date = date(2026, 11, 2)
+    _add_obligation_if_new(db, kestrel, northwind, ObligationDirection.PAYABLE, 1000, "GBP", multilateral_date)
+    _add_obligation_if_new(db, nordic, northwind, ObligationDirection.RECEIVABLE, 600, "GBP", multilateral_date)
+    _add_obligation_if_new(db, baltic, northwind, ObligationDirection.RECEIVABLE, 400, "GBP", multilateral_date)
+
+    # Tier-B counterparty: a run of on-time payments plus a small matchable pair.
+    for i in range(10):
+        due = date(2026, 1, 1) + timedelta(days=i * 20)
+        _add_payment_event_if_new(db, pacific, harbor, due, due, 3000, "USD")
+
+    auto_eligible_date = date(2026, 12, 1)
+    _add_obligation_if_new(db, acme, harbor, ObligationDirection.PAYABLE, 300, "INR", auto_eligible_date)
+    _add_obligation_if_new(db, pacific, harbor, ObligationDirection.RECEIVABLE, 2, "USD", auto_eligible_date)
+
+
 def run():
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
@@ -149,10 +223,12 @@ def run():
                 seed_obligations_and_events(db, sme, counterparty, seq)
                 seq += 1
 
+        seed_guaranteed_demo_scenarios(db, smes_by_name, counterparties_by_name)
+
         db.commit()
         print(
             f"Seed complete: {len(smes_by_name)} SMEs, {len(counterparties_by_name)} counterparties, "
-            f"{seq} (sme, counterparty) obligation/payment-event pairs."
+            f"{seq} (sme, counterparty) obligation/payment-event pairs, plus guaranteed demo scenarios."
         )
     finally:
         db.close()
