@@ -17,6 +17,8 @@ services:
 
   api:
     build: .
+    env_file:
+      - .env
     environment:
       DATABASE_URL: postgresql+psycopg2://borderpilot:borderpilot@db:5432/borderpilot
     ports:

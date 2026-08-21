@@ -13,8 +13,9 @@ from datetime import date, timedelta
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models import NettingRun, Obligation, OffsetMatch
+from app.models import SME, NettingRun, Obligation, OffsetMatch
 from app.models.obligation import ObligationDirection, ObligationStatus
+from app.services.explain import build_counterparty_context, eligibility_flag_for_tier, generate_justification
 
 # Static FX table (rate to USD). No live FX API for this build pass -- snapshotted
 # onto each NettingRun so historic runs stay self-describing if the table changes.
@@ -130,17 +131,41 @@ def run_netting(db: Session) -> NettingRun:
     db.add(run)
     db.flush()
 
+    counterparty_context_cache: dict[uuid.UUID, dict] = {}
+
     for m in matches:
         start, end = bucket_bounds(m["bucket"])
+        counterparty_id = m["counterparty_id"]
+        if counterparty_id not in counterparty_context_cache:
+            counterparty_context_cache[counterparty_id] = build_counterparty_context(db, counterparty_id)
+        cp_context = counterparty_context_cache[counterparty_id]
+
+        payable_ob = db.get(Obligation, m["payable_obligation_id"])
+        receivable_ob = db.get(Obligation, m["receivable_obligation_id"])
+        payable_sme = db.get(SME, payable_ob.sme_id)
+        receivable_sme = db.get(SME, receivable_ob.sme_id)
+
+        match_context = {
+            **cp_context,
+            "payable_sme_name": payable_sme.name,
+            "receivable_sme_name": receivable_sme.name,
+            "matched_amount_usd": m["matched_amount_usd"],
+        }
+        justification_text, ai_generated = generate_justification(match_context)
+
         db.add(
             OffsetMatch(
                 netting_run_id=run.id,
-                counterparty_id=m["counterparty_id"],
+                counterparty_id=counterparty_id,
                 payable_obligation_id=m["payable_obligation_id"],
                 receivable_obligation_id=m["receivable_obligation_id"],
                 settlement_bucket_start=start,
                 settlement_bucket_end=end,
                 matched_amount_usd=m["matched_amount_usd"],
+                confidence_tier=cp_context["tier"],
+                eligibility_flag=eligibility_flag_for_tier(cp_context["tier"]),
+                justification_text=justification_text,
+                ai_generated=ai_generated,
             )
         )
 

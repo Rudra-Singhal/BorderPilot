@@ -90,6 +90,10 @@ class OffsetMatchOut(BaseModel):
     settlement_bucket_start: date
     settlement_bucket_end: date
     matched_amount_usd: float
+    confidence_tier: str | None
+    eligibility_flag: str | None
+    justification_text: str | None
+    ai_generated: bool | None
     created_at: datetime
 
 
