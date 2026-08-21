@@ -26,8 +26,42 @@
   --critical-soft: #F5E1E1;
   --critical-text: #8A2C2C;
 
+  /* time-sensitive-but-not-yet-dangerous: liquidity gap approaching, offer expiring.
+     Deliberately orange-toned, distinct from --warning's brown-amber. */
+  --alert: #C15A1F;
+  --alert-soft: #F6E1D0;
+  --alert-text: #8A3F12;
+
+  /* neutral system information / AI-sourced content marker -- never used for risk */
+  --info: #3B6FB0;
+  --info-soft: #DCE6F2;
+  --info-text: #2A5384;
+
+  /* chart palette -- kept separate from semantic risk color so a forecast band is
+     never confused with a risk tier */
+  --chart-line: #1F6F5C;
+  --chart-band-80: #BFE0D5;
+  --chart-band-95: #E3F1EC;
+  --chart-grid: #E4E9E4;
+  --chart-axis: #8B958F;
+
   --shadow-sm: 0 1px 2px rgba(18, 22, 26, 0.04);
   --shadow-md: 0 4px 16px rgba(18, 22, 26, 0.06);
+  --shadow-lg: 0 12px 40px rgba(18, 22, 26, 0.14);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
 
   --font-ui: "Manrope", -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
@@ -62,8 +96,23 @@
     --critical-soft: #3A1F1F;
     --critical-text: #EF9B9B;
 
+    --alert: #E0935A;
+    --alert-soft: #3A2413;
+    --alert-text: #F0B384;
+
+    --info: #7FA8D9;
+    --info-soft: #1C2733;
+    --info-text: #A8C4E8;
+
+    --chart-line: #4FBFA0;
+    --chart-band-80: #2A4A41;
+    --chart-band-95: #1C332C;
+    --chart-grid: #26302B;
+    --chart-axis: #626D67;
+
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -95,6 +144,21 @@
   --critical-soft: #3A1F1F;
   --critical-text: #EF9B9B;
 
+  --alert: #E0935A;
+  --alert-soft: #3A2413;
+  --alert-text: #F0B384;
+
+  --info: #7FA8D9;
+  --info-soft: #1C2733;
+  --info-text: #A8C4E8;
+
+  --chart-line: #4FBFA0;
+  --chart-band-80: #2A4A41;
+  --chart-band-95: #1C332C;
+  --chart-grid: #26302B;
+  --chart-axis: #626D67;
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
 }

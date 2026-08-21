@@ -13,3 +13,7 @@
   border-style: solid;
   border-color: transparent;
 }
+
+.emptyAction {
+  margin-top: 12px;
+}

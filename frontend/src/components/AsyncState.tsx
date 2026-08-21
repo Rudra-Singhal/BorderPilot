@@ -11,3 +11,12 @@ export function ErrorState({ message }: { message: string }) {
     </div>
   );
 }
+
+export function EmptyState({ label, action }: { label: string; action?: React.ReactNode }) {
+  return (
+    <div className={styles.state}>
+      {label}
+      {action && <div className={styles.emptyAction}>{action}</div>}
+    </div>
+  );
+}

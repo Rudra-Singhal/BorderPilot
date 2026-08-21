@@ -1,0 +1,18 @@
+.notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--info-soft);
+  color: var(--info-text);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  font-size: 12.5px;
+  margin-bottom: var(--space-5);
+}
+
+.tag {
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+}

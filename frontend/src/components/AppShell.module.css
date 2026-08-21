@@ -70,6 +70,25 @@
   margin-top: auto;
   padding: 10px 8px 0;
   border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logout {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 11.5px;
+  font-weight: 600;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  padding: 0;
+}
+
+.logout:hover {
+  color: var(--critical-text);
 }
 
 .footerLabel {

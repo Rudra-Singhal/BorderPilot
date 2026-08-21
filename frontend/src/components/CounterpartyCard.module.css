@@ -1,0 +1,124 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.card.compact {
+  padding: var(--space-4);
+  gap: var(--space-3);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.name {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.compact .name {
+  font-size: 14px;
+}
+
+.corridor {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-family: var(--font-mono);
+}
+
+.thinDataFlag {
+  font-size: 12px;
+  color: var(--alert-text);
+  background: var(--alert-soft);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.statValue {
+  display: block;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.statLabel {
+  display: block;
+  font-size: 11px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.bucketBar {
+  display: flex;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface-sunken);
+}
+
+.bucketOnTime {
+  background: var(--good);
+}
+.bucketModerate {
+  background: var(--warning);
+}
+.bucketSignificant {
+  background: var(--critical);
+}
+
+.bucketLegend {
+  display: flex;
+  gap: var(--space-4);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.bucketLegend i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.dotOnTime {
+  background: var(--good);
+}
+.dotModerate {
+  background: var(--warning);
+}
+.dotSignificant {
+  background: var(--critical);
+}
+
+.footer {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.footer strong {
+  color: var(--text);
+}

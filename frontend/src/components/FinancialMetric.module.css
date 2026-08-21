@@ -1,0 +1,61 @@
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.value.display {
+  font-size: clamp(32px, 4vw, 40px);
+  font-weight: 800;
+  font-family: var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.trend {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.trend.up {
+  color: var(--good-text);
+}
+.trend.down {
+  color: var(--critical-text);
+}
+.trend.flat {
+  color: var(--text-faint);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--text-faint);
+}

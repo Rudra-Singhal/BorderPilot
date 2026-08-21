@@ -1,16 +1,44 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useTheme } from "../lib/theme";
-import { IconFlow, IconGrid, IconMoon, IconSun, IconTable } from "./icons";
+import { useAuth } from "../lib/auth";
+import {
+  IconActivity,
+  IconAssistant,
+  IconBuildings,
+  IconDroplet,
+  IconExchange,
+  IconFlow,
+  IconGrid,
+  IconMoon,
+  IconShield,
+  IconSun,
+  IconTable,
+  IconTrend,
+} from "./icons";
 import styles from "./AppShell.module.css";
 
 const NAV = [
-  { to: "/", label: "Dashboard", icon: IconGrid, end: true },
+  { to: "/", label: "Overview", icon: IconGrid, end: true },
+  { to: "/forecast", label: "Cash & Forecast", icon: IconTrend, end: false },
   { to: "/receivables", label: "Receivables", icon: IconTable, end: false },
-  { to: "/netting-runs", label: "Netting runs", icon: IconFlow, end: false },
+  { to: "/counterparties", label: "Counterparties", icon: IconBuildings, end: false },
+  { to: "/liquidity", label: "Liquidity", icon: IconDroplet, end: false },
+  { to: "/netting-runs", label: "Netting", icon: IconFlow, end: false },
+  { to: "/fx", label: "FX & Exposure", icon: IconExchange, end: false },
+  { to: "/compliance", label: "Compliance", icon: IconShield, end: false },
+  { to: "/assistant", label: "Assistant", icon: IconAssistant, end: false },
+  { to: "/activity", label: "Activity", icon: IconActivity, end: false },
 ];
 
 export function AppShell() {
   const { theme, toggle } = useTheme();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/login", { replace: true });
+  }
 
   return (
     <div className={styles.shell}>
@@ -33,7 +61,10 @@ export function AppShell() {
           ))}
         </nav>
         <div className={styles.sidebarFooter}>
-          <span className={styles.footerLabel}>Pooled SME netting engine</span>
+          <span className={styles.footerLabel}>Pooled SME underwriting orchestration</span>
+          <button className={styles.logout} onClick={handleLogout}>
+            Sign out
+          </button>
         </div>
       </aside>
 

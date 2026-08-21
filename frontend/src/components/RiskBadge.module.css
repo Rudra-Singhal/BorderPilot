@@ -1,0 +1,33 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.score {
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.good {
+  background: var(--good-soft);
+  color: var(--good-text);
+}
+.warning {
+  background: var(--warning-soft);
+  color: var(--warning-text);
+}
+.critical {
+  background: var(--critical-soft);
+  color: var(--critical-text);
+}
+.neutral {
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+}

@@ -80,3 +80,81 @@ export function IconDownload({ size = 14 }: IconProps) {
     </svg>
   );
 }
+
+export function IconTrend({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <path d="M2.5 15 7 9.5l3 3 6-7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M13 5h3v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconBuildings({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <rect x="2.5" y="7" width="6" height="10.5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="11.5" y="2.5" width="6" height="15" rx="1" stroke="currentColor" strokeWidth="1.5" />
+      <line x1="4.7" y1="9.5" x2="4.7" y2="9.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="13.7" y1="5.5" x2="13.7" y2="5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="13.7" y1="9" x2="13.7" y2="9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconDroplet({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <path
+        d="M10 2.5s5.5 6.4 5.5 10.2a5.5 5.5 0 1 1-11 0C4.5 8.9 10 2.5 10 2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function IconExchange({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <path d="M3 6.5h11.5M14.5 6.5 11.5 3.5M14.5 6.5 11.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M17 13.5H5.5M5.5 13.5 8.5 10.5M5.5 13.5 8.5 16.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconShield({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <path
+        d="M10 2.5 16.5 5v5c0 4-2.8 6.7-6.5 7.5C6.3 16.7 3.5 14 3.5 10V5L10 2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M7.3 10 9.2 11.9 12.9 8.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconAssistant({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <rect x="2.5" y="4" width="15" height="10" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M7 17.5 8.5 14h3l1.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="6.5" y1="8" x2="6.5" y2="8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="10" y1="8" x2="10" y2="8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="13.5" y1="8" x2="13.5" y2="8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconActivity({ size = 17 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10 5.5V10l3 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
