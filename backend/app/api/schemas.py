@@ -77,3 +77,43 @@ class ReliabilityScoreOut(BaseModel):
     version: int
     factors: dict
     computed_at: datetime
+
+
+class OffsetMatchOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    netting_run_id: uuid.UUID
+    counterparty_id: uuid.UUID
+    payable_obligation_id: uuid.UUID
+    receivable_obligation_id: uuid.UUID
+    settlement_bucket_start: date
+    settlement_bucket_end: date
+    matched_amount_usd: float
+    created_at: datetime
+
+
+class NettingRunOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    executed_at: datetime
+    window_days: int
+    obligations_considered: int
+    matches_created: int
+    fx_snapshot: dict
+
+
+class NettingRunDetailOut(NettingRunOut):
+    matches: list[OffsetMatchOut]
+
+
+class ResidualOut(BaseModel):
+    obligation_id: uuid.UUID
+    sme_id: uuid.UUID
+    counterparty_id: uuid.UUID
+    direction: str
+    total_usd: float
+    matched_usd: float
+    residual_usd: float
+    fully_matched: bool
