@@ -121,3 +121,19 @@ class ResidualOut(BaseModel):
     matched_usd: float
     residual_usd: float
     fully_matched: bool
+
+
+class BankPacketOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    netting_run_id: uuid.UUID
+    generated_at: datetime
+    gross_obligations_usd: float
+    total_matched_usd: float
+    net_settlement_usd: float
+    fx_friction_savings_usd: float
+    matches_count: int
+    auto_eligible_count: int
+    needs_review_count: int
+    body: dict
