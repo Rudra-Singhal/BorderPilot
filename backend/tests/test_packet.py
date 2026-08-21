@@ -7,10 +7,12 @@ whatever a real run produces. Bedrock is mocked, same as test_explain.py.
 """
 
 import json
+import threading
 import uuid
 from unittest.mock import MagicMock, patch
 
 import pytest
+from sqlalchemy import text
 
 from app.db.session import SessionLocal
 from app.services.explain import ELIGIBILITY_NEEDS_REVIEW
@@ -83,3 +85,48 @@ def test_build_packet_upserts_same_row_on_regenerate(db, mocked_bedrock):
     second = build_packet(db, run.id)
 
     assert second.id == first_id  # same packet row, not a duplicate
+
+
+def test_build_packet_survives_concurrent_requests_for_same_run(mocked_bedrock):
+    """Regression test: two independent DB sessions (mirroring two near-simultaneous HTTP
+    requests -- e.g. React's dev-mode double effect invocation) both computing the packet
+    for the same brand-new netting run must not race a SELECT-then-INSERT against the
+    netting_run_id unique constraint. Needs a real commit for cross-session visibility, so
+    this test cleans up its own rows explicitly rather than relying on rollback.
+    """
+    setup_session = SessionLocal()
+    run = run_netting(setup_session)
+    run_id = run.id
+    setup_session.commit()
+    setup_session.close()
+
+    errors: list[Exception] = []
+    barrier = threading.Barrier(2)
+
+    def worker():
+        session = SessionLocal()
+        try:
+            barrier.wait(timeout=5)
+            build_packet(session, run_id)
+            session.commit()
+        except Exception as exc:  # noqa: BLE001
+            errors.append(exc)
+        finally:
+            session.close()
+
+    threads = [threading.Thread(target=worker) for _ in range(2)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(timeout=10)
+
+    cleanup_session = SessionLocal()
+    try:
+        cleanup_session.execute(text("DELETE FROM bank_packets WHERE netting_run_id = :rid"), {"rid": str(run_id)})
+        cleanup_session.execute(text("DELETE FROM offset_matches WHERE netting_run_id = :rid"), {"rid": str(run_id)})
+        cleanup_session.execute(text("DELETE FROM netting_runs WHERE id = :rid"), {"rid": str(run_id)})
+        cleanup_session.commit()
+    finally:
+        cleanup_session.close()
+
+    assert errors == [], f"concurrent build_packet calls raised: {errors!r}"

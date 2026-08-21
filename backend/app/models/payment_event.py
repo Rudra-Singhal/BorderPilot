@@ -23,6 +23,6 @@ class PaymentEvent(Base):
     )
     due_date: Mapped[date] = mapped_column(Date, nullable=False)
     paid_date: Mapped[date] = mapped_column(Date, nullable=False)
-    amount: Mapped[float] = mapped_column(Numeric(14, 2), nullable=False)
+    amount: Mapped[float] = mapped_column(Numeric(14, 2, asdecimal=False), nullable=False)
     currency: Mapped[str] = mapped_column(String(3), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

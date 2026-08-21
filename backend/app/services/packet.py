@@ -7,6 +7,7 @@ This is the artifact a bank would actually receive; no bank API call is made.
 import uuid
 
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import Session
 
 from app.models import SME, BankPacket, Counterparty, NettingRun, Obligation, OffsetMatch
@@ -106,21 +107,28 @@ def build_packet(db: Session, netting_run_id: uuid.UUID) -> BankPacket:
         },
     }
 
-    packet = db.execute(
-        select(BankPacket).where(BankPacket.netting_run_id == netting_run_id)
-    ).scalar_one_or_none()
-    if packet is None:
-        packet = BankPacket(netting_run_id=netting_run_id)
-        db.add(packet)
-
-    packet.gross_obligations_usd = gross_obligations_usd
-    packet.total_matched_usd = total_matched_usd
-    packet.net_settlement_usd = net_settlement_usd
-    packet.fx_friction_savings_usd = fx_friction_savings_usd
-    packet.matches_count = len(match_entries)
-    packet.auto_eligible_count = auto_eligible_count
-    packet.needs_review_count = needs_review_count
-    packet.body = body
-
+    # Atomic upsert: two near-simultaneous requests for the same run's packet (e.g. React's
+    # dev-mode double effect invocation) must not race a SELECT-then-INSERT against the
+    # netting_run_id unique constraint. ON CONFLICT DO UPDATE resolves this at the DB level.
+    values = {
+        "netting_run_id": netting_run_id,
+        "gross_obligations_usd": gross_obligations_usd,
+        "total_matched_usd": total_matched_usd,
+        "net_settlement_usd": net_settlement_usd,
+        "fx_friction_savings_usd": fx_friction_savings_usd,
+        "matches_count": len(match_entries),
+        "auto_eligible_count": auto_eligible_count,
+        "needs_review_count": needs_review_count,
+        "body": body,
+    }
+    stmt = pg_insert(BankPacket).values(**values)
+    stmt = stmt.on_conflict_do_update(
+        index_elements=[BankPacket.netting_run_id],
+        set_={k: v for k, v in values.items() if k != "netting_run_id"},
+    )
+    db.execute(stmt)
     db.flush()
-    return packet
+
+    return db.execute(
+        select(BankPacket).where(BankPacket.netting_run_id == netting_run_id)
+    ).scalar_one()

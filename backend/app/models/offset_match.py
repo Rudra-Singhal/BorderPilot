@@ -35,7 +35,7 @@ class OffsetMatch(Base):
     )
     settlement_bucket_start: Mapped[date] = mapped_column(Date, nullable=False)
     settlement_bucket_end: Mapped[date] = mapped_column(Date, nullable=False)
-    matched_amount_usd: Mapped[float] = mapped_column(Numeric(14, 2), nullable=False)
+    matched_amount_usd: Mapped[float] = mapped_column(Numeric(14, 2, asdecimal=False), nullable=False)
     confidence_tier: Mapped[str | None] = mapped_column(String(1), nullable=True)
     eligibility_flag: Mapped[str | None] = mapped_column(String(20), nullable=True)
     justification_text: Mapped[str | None] = mapped_column(Text, nullable=True)

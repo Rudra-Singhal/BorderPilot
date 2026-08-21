@@ -31,7 +31,7 @@ class Obligation(Base):
         UUID(as_uuid=True), ForeignKey("counterparties.id"), nullable=False
     )
     direction: Mapped[ObligationDirection] = mapped_column(Enum(ObligationDirection), nullable=False)
-    amount: Mapped[float] = mapped_column(Numeric(14, 2), nullable=False)
+    amount: Mapped[float] = mapped_column(Numeric(14, 2, asdecimal=False), nullable=False)
     currency: Mapped[str] = mapped_column(String(3), nullable=False)
     expected_settlement_date: Mapped[date] = mapped_column(Date, nullable=False)
     status: Mapped[ObligationStatus] = mapped_column(
