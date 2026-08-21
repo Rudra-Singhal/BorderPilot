@@ -64,3 +64,16 @@ class PaymentBehaviorProfileOut(BaseModel):
     transaction_count: int
     most_recent_payment_date: date
     computed_at: datetime
+
+
+class ReliabilityScoreOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    counterparty_id: uuid.UUID
+    obligation_id: uuid.UUID | None
+    score: float
+    tier: str
+    version: int
+    factors: dict
+    computed_at: datetime
