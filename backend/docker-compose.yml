@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: borderpilot
+      POSTGRES_PASSWORD: borderpilot
+      POSTGRES_DB: borderpilot
+    ports:
+      - "5544:5432"
+    volumes:
+      - borderpilot_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U borderpilot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    environment:
+      DATABASE_URL: postgresql+psycopg2://borderpilot:borderpilot@db:5432/borderpilot
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+volumes:
+  borderpilot_pgdata:
