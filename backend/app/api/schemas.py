@@ -51,3 +51,16 @@ class PaymentEventOut(BaseModel):
     amount: float
     currency: str
     created_at: datetime
+
+
+class PaymentBehaviorProfileOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    counterparty_id: uuid.UUID
+    on_time_ratio: float
+    median_delay_days: float
+    delay_variance: float
+    transaction_count: int
+    most_recent_payment_date: date
+    computed_at: datetime
